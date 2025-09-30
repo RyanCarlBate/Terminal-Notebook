@@ -12,7 +12,6 @@ To compile and run this C++ application, you will need:
 
 * A **C++ Compiler** (e.g., MinGW, MSVC).
 * **Windows Operating System**.
-* 
 ## 🛠️ Built With
 
 * **C++**
@@ -29,5 +28,3 @@ Here are a few things I plan to implement next:
 ## 📄 License
 
 This project is licensed under the Apache License Version 2.0 - see the [LICENSE.md](LICENSE.md) file for details.
-
-*Keep checking back for updates!*
