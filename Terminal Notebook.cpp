@@ -2,14 +2,25 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <cstdio>
 
 using namespace std;
 
+// Creates function that clears terminal screen
+void clearTerminal()
+{
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 int main() 
 {
-    const string filePath = R"(C:\Users\Admin\Documents\DONT_DELETE_THIS_IS_RELATED_TO_TERMINAL-NOTEBOOK.txt)";
+    const string metaPath = R"(C:\Users\Admin\Documents\DONT_DELETE_THIS_IS_RELATED_TO_TERMINAL-NOTEBOOK.txt)";
     string fileName;
-    int choices,noteChecker;
+    int choices;
     int notes = 0;
     string note;
 
@@ -20,7 +31,7 @@ int main()
     //cout << "3. Exit" << endl;//
 
     // Read current number of notes stored in a file
-    ifstream readFile(filePath);
+    ifstream readFile(metaPath);
     if (readFile.is_open())
     {
         readFile >> notes;
@@ -29,8 +40,8 @@ int main()
     else
     {
         cout << "Error opening file to read number of notes created. Generating file..." << endl;
-        // Create the file if it doesn't exist:
-        ofstream createFile(filePath);
+        // Creates the file if it doesn't exist
+        ofstream createFile(metaPath);
         if (createFile.is_open())
         {
             createFile << 0 << endl; // Initialize with 0 notes
@@ -45,24 +56,26 @@ int main()
     cout << "Enter your choice: ";
     cin >> choices;
     cin.ignore();
-    if (choices == 1 && notes == 0)
+    if (choices == 1)
     {
-        ofstream writeFile(filePath);
+        clearTerminal();
+        ofstream writeFile(metaPath);
         if (writeFile.is_open()) 
         {
             notes++;
             writeFile << notes << endl; // Write updated note count
-            writeFile.close();
-        }
-        ofstream writeNotes(R"(C:\Users\Admin\Documents\yournote.txt)"); // Soon to be changed to have ability to create custom file names
-        if (writeNotes.is_open())
-        {
+            writeFile.close(); // Close the file after updating note count
+            ofstream writeNotes(R"(C:\Users\Admin\Documents\yournote.txt)"); //Soon to be changed to have ability to create custom file names//
             cout << "Enter your note: ";
             getline(cin, note);
             writeNotes << note << endl; // Write the actual note
-            writeNotes.close();
+            writeNotes.close(); // Close the file after writing
+            cout << "Note saved successfully!" << endl;
         }
-        cout << "File saved successfully." << endl;
+        else
+        {
+            cout << "Something went wrong." << endl;
+        }
     }
     //Will implement other choices here later:
 
